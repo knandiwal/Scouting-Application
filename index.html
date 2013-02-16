@@ -1,0 +1,169 @@
+<!-- 
+SpamProgramming
+Copyright (c) 2013 SPAM Prog. All rights reserved.
+-->
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+    <link rel="stylesheet" type="text/css" href="index.css" />
+
+    <title>Spam Scout App</title>
+</head>
+
+<body>
+    <!--
+    <div class="app">
+        <h1>SPAM Scout</h1>
+        <div id="deviceready" class="blink">
+            <p class="event listening">Connecting to Device</p>
+            <p class="event received">Device is Ready</p>
+        </div>
+    </div>
+    -->
+    
+    <script type="text/javascript" src="js/cordova-2.3.0.js"></script>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/jquery-ui.min.js"></script>
+
+    <script type="text/javascript" src="js/startup.js"></script>
+    <script type="text/javascript">app.initialize();</script>
+   
+    <script type="text/javascript" src="js/timer.js"></script>
+    <script type="text/javascript" src="index.js"></script>
+
+    <div>
+        <form name="form" id="form_id">
+            <!-- Team Info -->
+            <fieldset><legend>Team Info</legend>
+
+                <!-- Driver Position Section -->
+
+                <br><input type="text" class="purplebutton" name="team_name" placeholder="Team Name" value="" required>
+
+                <input type="text" class="purplebutton" name="match_number" placeholder="Match Number" value="" required><br><br>
+  
+            </fieldset>
+
+            <fieldset><legend>Pre Match</legend>
+                <br>Disks Loaded: 
+                <select id="disks_load" name="disksload">
+                    <option value="0">None</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                </select><br><br>
+
+                <br>Are They There?: 
+                <select id="present" name="present">
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select><br><br>
+
+                <br>Does The Robot Work?: 
+                <select id="robot_status" name="robotstatus">
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select><br><br>
+            </fieldset>
+
+            <!-- Autonomous -->
+            <fieldset><legend>Autonomous</legend>
+                <p class="purplebutton" id="auto_timer_button" onclick="MatchTimerToggle('Auto')">Game Timer</p>
+                
+                <label id="id_other">Score: </label>
+                <p class="purplebutton" id="auto_score_readout"> 0 </p>
+                
+                <br><br>
+
+                <!-- Autonomous Goals -->
+                <input type="button" class="purplebutton" value="Miss" onclick="ScoreGoal('Auto', 0)">
+                <input type="button" class="purplebutton" value="Goal 1" onclick="ScoreGoal('Auto', 2)">
+                <input type="button" class="purplebutton" value="Goal 2" onclick="ScoreGoal('Auto', 4)">
+                <input type="button" class="purplebutton" value="Goal 3" onclick="ScoreGoal('Auto', 6)"><br>
+
+                <!-- Auto Disks Shot -->
+                <br><input type="text" class="purplebutton" name="auto_disks_shot" placeholder="Disks Shot" value="" required>
+
+                <!-- Tele Disks Pickup -->
+                <input type="text" class="purplebutton" name="auto_disk_pickup" placeholder="Disks Picked Up" value="" required><br>
+
+                <!-- "Ending Position" -->
+
+                <!-- Tele Fouls -->
+                <br><input type="text" class="purplebutton" name="auto_fouls" placeholder="Normal Fouls" value="" required>
+
+                <!-- Tele Technical Fouls -->
+                <input type="text" class="purplebutton" name="auto_technical_fouls" placeholder="Technical Fouls" value="" required><br>
+
+                <br>
+            </fieldset>
+
+            <!-- Tele-Op -->
+            <fieldset><legend>Tele-Op</legend>
+                <!-- Tele Timer -->
+                <p class="purplebutton" id="tele_timer_button" onclick="MatchTimerToggle('Tele')">Game Timer</p>
+
+                <label id="id_other">Score: </label>
+                <p class="purplebutton" id="tele_score_readout"> 0 </p>
+                
+                <br><br>
+                <!-- Tele-Op Goals -->
+                <input type="button" class="purplebutton" value="Miss" onclick="ScoreGoal('Tele', 0)" >
+                <input type="button" class="purplebutton" value="Goal 1" onclick="ScoreGoal('Tele', 1)" >
+                <input type="button" class="purplebutton" value="Goal 2" onclick="ScoreGoal('Tele', 2)" >
+                <input type="button" class="purplebutton" value="Goal 3" onclick="ScoreGoal('Tele', 3)" ><br><br>
+
+                <!-- Tele Disks Shot -->
+                <input type="text" class="purplebutton" name="tele_disks_shot" placeholder="Disks Shot" value="" required>
+
+                <!-- Tele Disks Pickup -->
+                <input type="text" class="purplebutton" name="tele_disk_pickup" placeholder="Disks Picked Up" value="" required><br><br>
+
+                <!-- Disks From Feeder -->
+                <input type="text" class="purplebutton" name="disks_from_feeder" placeholder="Disks From Feeder" value="" required>
+
+                <!-- Pyramid Goals -->
+                <input type="text" class="purplebutton" name="goals_in_pyramid" placeholder="Goals Made in Pyramid" value="" required><br><br>
+
+                <!-- Tele Fouls -->
+                <input type="text" class="purplebutton" name="tele_fouls" placeholder="Normal Fouls" value="" required>
+
+                <!-- Tele Technical Fouls -->
+                <input type="text" class="purplebutton" name="tele_technical_fouls" placeholder="Technical Fouls" value="" required><br>
+
+                <!-- "Defensive Moves" -->
+
+                <!-- Pyramid Goals -->
+                <input type="button" class="purplebutton" value="Pyramid Goal" onclick="ScoreGoal('Pyramid', 1)">
+
+                <label id="id_other">Score: </label>
+                <p class="purplebutton" id="pyramid_score_readout"> 0 </p>
+                <br><br>  
+
+                <!-- Pyramid -->
+                <fieldset><legend>Pyramid</legend>
+                    <br>Climb Attempted: 
+                    <select id="climb_attempted" name="climbattempted">
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select><br><br>
+
+                    <br>Level Achieved: 
+                    <select id="level_achieved" name="levelachieved">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select><br><br>
+                </fieldset>
+
+              <br>
+            </fieldset>
+        </form>
+    </div>
+
+</body>
+</html>
